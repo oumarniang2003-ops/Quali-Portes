@@ -1,0 +1,922 @@
+<title>Quali Portes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,380..760&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg: #EDEAE2;
+    --surface: #FBF9F3;
+    --surface-2: #F2EEE3;
+    --ink: #1E1A15;
+    --ink-soft: #6B6153;
+    --line: #DAD4C5;
+    --wood: #9C5F27;
+    --wood-strong: #7A4A1E;
+    --wood-tint: #F1E2CC;
+    --steel: #46565F;
+    --steel-tint: #E4EAEC;
+    --forge: #8B3A2B;
+    --forge-tint: #F3DFD8;
+    --glass: #6E8F89;
+    --glass-tint: #DCE9E5;
+    --shadow: 30 20 10;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #17140F;
+      --surface: #201B14;
+      --surface-2: #251F17;
+      --ink: #F3EEE4;
+      --ink-soft: #AFA28C;
+      --line: #3A3327;
+      --wood: #DE9A52;
+      --wood-strong: #F0B26E;
+      --wood-tint: #362718;
+      --steel: #9DB2BC;
+      --steel-tint: #26313A;
+      --forge: #D97B62;
+      --forge-tint: #3A2620;
+      --glass: #9CC2BB;
+      --glass-tint: #1F2E2A;
+      --shadow: 0 0 0;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #17140F;
+    --surface: #201B14;
+    --surface-2: #251F17;
+    --ink: #F3EEE4;
+    --ink-soft: #AFA28C;
+    --line: #3A3327;
+    --wood: #DE9A52;
+    --wood-strong: #F0B26E;
+    --wood-tint: #362718;
+    --steel: #9DB2BC;
+    --steel-tint: #26313A;
+    --forge: #D97B62;
+    --forge-tint: #3A2620;
+    --glass: #9CC2BB;
+    --glass-tint: #1F2E2A;
+    --shadow: 0 0 0;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  h1,h2,h3{
+    font-family: "Fraunces", "Iowan Old Style", ui-serif, serif;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  a{ color: inherit; }
+  p{ margin: 0; }
+  ul{ margin: 0; padding: 0; list-style: none; }
+
+  .mono{
+    font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  }
+  .eyebrow{
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .wrap{
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  /* ---------- promo bar ---------- */
+  .promo-bar{
+    background: var(--ink);
+    color: var(--bg);
+    text-align: center;
+    font-size: 0.82rem;
+    padding: 0.55rem 1rem;
+  }
+  .promo-bar a{
+    color: var(--wood-strong);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  :root[data-theme="dark"] .promo-bar a{ color: var(--wood); }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .promo-bar a{ color: var(--wood); } }
+
+  /* ---------- header ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.95rem 0;
+  }
+  .brand{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .brand img{
+    height: 2.7rem;
+    width: auto;
+    border-radius: 6px;
+    display: block;
+  }
+  .nav-links{
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2rem);
+  }
+  .nav-links a{
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    position: relative;
+    padding: 0.2rem 0;
+  }
+  .nav-links a::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 100%;
+    bottom: -2px;
+    height: 1.5px;
+    background: var(--wood);
+    transition: right 0.2s ease;
+  }
+  .nav-links a:hover{ color: var(--ink); }
+  .nav-links a:hover::after{ right: 0; }
+  .nav-actions{ display: flex; align-items: center; gap: 0.9rem; }
+  .nav-phone{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .nav-toggle{ display: none; }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.62rem 1.15rem;
+    border-radius: 3px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn-primary{
+    background: var(--wood);
+    color: #FBF9F3;
+  }
+  .btn-primary:hover{ background: var(--wood-strong); }
+  .btn-ghost{
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+  .btn-ghost:hover{ border-color: var(--ink-soft); }
+  .btn-sm{ padding: 0.45rem 0.85rem; font-size: 0.78rem; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+  }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .hero h1{
+    font-size: clamp(2.3rem, 4.4vw, 3.6rem);
+    line-height: 1.06;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--wood);
+  }
+  .hero-lede{
+    margin-top: 1.1rem;
+    max-width: 46ch;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+  .hero-ctas{
+    margin-top: 1.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+  .hero-stats{
+    margin-top: 2.6rem;
+    display: flex;
+    gap: clamp(1.4rem, 3vw, 2.4rem);
+  }
+  .stat{ padding-left: 1.1rem; border-left: 2px solid var(--line); }
+  .stat b{
+    display: block;
+    font-family: "Fraunces", serif;
+    font-size: 1.6rem;
+    font-weight: 620;
+  }
+  .stat span{
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  .hero-art{ display: flex; justify-content: center; }
+  .hero-art svg{ width: 100%; max-width: 380px; height: auto; }
+  .door-panel{ transition: transform 0.4s ease; }
+  .hero-art:hover .door-panel{ transform: translateY(-4px); }
+
+  /* ---------- sections ---------- */
+  section{ padding: clamp(2.6rem, 6vw, 4.5rem) 0; }
+  .section-head{
+    max-width: 62ch;
+    margin-bottom: clamp(1.8rem, 4vw, 2.8rem);
+  }
+  .section-head h2{
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    margin-top: 0.5rem;
+  }
+  .section-head p{
+    margin-top: 0.7rem;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    max-width: 58ch;
+  }
+
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in-view{ opacity: 1; transform: none; }
+
+  /* ---------- materials strip ---------- */
+  .materials{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+  }
+  .material-chip{
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.9rem 0.45rem 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.82rem;
+  }
+  .swatch{
+    width: 1.35rem; height: 1.35rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+    flex-shrink: 0;
+  }
+  .swatch.pvc{ background: linear-gradient(135deg, var(--steel-tint), var(--steel)); }
+  .swatch.bois{ background: repeating-linear-gradient(100deg, var(--wood) 0 3px, var(--wood-strong) 3px 6px); }
+  .swatch.acier{ background: linear-gradient(135deg, var(--forge-tint), var(--forge)); }
+
+  /* ---------- catalog cards ---------- */
+  .catalog{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.3rem;
+  }
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -18px rgba(var(--shadow), 0.35);
+  }
+  .card-bar{ height: 4px; }
+  .card-bar.pvc{ background: var(--steel); }
+  .card-bar.bois{ background: var(--wood); }
+  .card-bar.acier{ background: var(--forge); }
+  .card-media{
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: flex;
+    background: var(--surface-2);
+  }
+  .card-media img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .card:hover .card-media img{ transform: scale(1.04); }
+  .card-media.split img{ width: 50%; }
+  .media-tag{
+    position: absolute;
+    bottom: 0.55rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: color-mix(in srgb, #17140F 62%, transparent);
+    color: #F3EEE4;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+  }
+  .media-tag.left{ left: 0.55rem; }
+  .media-tag.right{ right: 0.55rem; }
+  .media-tag.center{ left: 0.55rem; }
+  .card-body{ padding: 1.5rem 1.5rem 1.7rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+  .card-icon{ width: 2.4rem; height: 2.4rem; }
+  .card h3{ font-size: 1.28rem; }
+  .card-tag{
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: "JetBrains Mono", monospace;
+    padding: 0.18rem 0.55rem;
+    border-radius: 3px;
+  }
+  .card-tag.pvc{ background: var(--steel-tint); color: var(--steel); }
+  .card-tag.bois{ background: var(--wood-tint); color: var(--wood-strong); }
+  .card-tag.acier{ background: var(--forge-tint); color: var(--forge); }
+  .card p.desc{ color: var(--ink-soft); font-size: 0.95rem; }
+  .spec-list{ display: flex; flex-direction: column; gap: 0.4rem; }
+  .spec-list li{
+    display: flex;
+    justify-content: space-between;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .spec-list li:first-child{ border-top: none; }
+  .spec-list li span:first-child{ color: var(--ink-soft); }
+  .spec-list li span:last-child{ font-family: "JetBrains Mono", monospace; text-align: right; }
+  .atouts{ display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .atouts li{
+    font-size: 0.76rem;
+    padding: 0.28rem 0.6rem;
+    background: var(--surface-2);
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+  .card-foot{
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding-top: 0.4rem;
+  }
+  .price{ font-family: "JetBrains Mono", monospace; }
+  .price b{ font-size: 1.05rem; color: var(--ink); display:block; }
+  .price span{ font-size: 0.68rem; color: var(--ink-soft); }
+
+  /* ---------- comparison table ---------- */
+  .table-scroll{ overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+    background: var(--surface);
+  }
+  th, td{
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.88rem;
+    vertical-align: top;
+  }
+  thead th{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--surface-2);
+  }
+  tbody th{
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  tbody tr:last-child td, tbody tr:last-child th{ border-bottom: none; }
+  .dots{ display: inline-flex; gap: 3px; margin-right: 0.5rem; vertical-align: middle; }
+  .dots i{ width: 7px; height: 7px; border-radius: 999px; background: var(--line); display: inline-block; }
+  .dots i.on{ background: var(--wood); }
+  .cell-note{ display: block; color: var(--ink-soft); font-size: 0.78rem; margin-top: 0.15rem; }
+  td.price-cell{ font-family: "JetBrains Mono", monospace; }
+
+  /* ---------- process ---------- */
+  .process{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    position: relative;
+  }
+  .step{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.3rem 1.2rem;
+    position: relative;
+  }
+  .step .num{
+    font-family: "Fraunces", serif;
+    font-size: 2rem;
+    font-weight: 620;
+    color: var(--wood);
+    line-height: 1;
+  }
+  .step h3{ font-size: 1rem; margin-top: 0.6rem; }
+  .step p{ margin-top: 0.45rem; font-size: 0.85rem; color: var(--ink-soft); }
+
+  /* ---------- why us ---------- */
+  .why-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+  }
+  .why-item{
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .why-item:nth-child(1), .why-item:nth-child(2){ border-top: none; }
+  .why-item svg{ flex-shrink: 0; margin-top: 0.15rem; color: var(--wood); }
+  .why-item h3{ font-size: 0.98rem; font-family: "Archivo"; font-weight: 600; }
+  .why-item p{ font-size: 0.86rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+  /* ---------- contact / cta ---------- */
+  .cta{
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 10px;
+    padding: clamp(2rem, 5vw, 3.2rem);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2.5rem;
+  }
+  :root[data-theme="dark"] .cta, @media (prefers-color-scheme: dark){ }
+  .cta h2{ color: var(--bg); font-size: clamp(1.6rem, 3vw, 2.1rem); }
+  .cta p{ color: color-mix(in srgb, var(--bg) 70%, transparent); margin-top: 0.8rem; max-width: 42ch; }
+  .cta-actions{ margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .cta .btn-primary{ background: var(--wood); }
+  .cta .btn-ghost{ border-color: color-mix(in srgb, var(--bg) 35%, transparent); color: var(--bg); }
+  .contact-info{ display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
+  .contact-line{ display: flex; gap: 0.7rem; align-items: flex-start; }
+  .contact-line svg{ flex-shrink: 0; margin-top: 0.2rem; color: var(--wood); }
+  .contact-line b{ display: block; font-size: 0.95rem; }
+  .contact-line span{ font-size: 0.85rem; color: color-mix(in srgb, var(--bg) 65%, transparent); }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 1.8rem 0 2.4rem;
+  }
+  .foot-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .foot-note{ margin-top: 0.8rem; font-size: 0.74rem; color: var(--ink-soft); max-width: 70ch; }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--wood);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-art{ order: -1; max-width: 280px; margin: 0 auto; }
+    .catalog{ grid-template-columns: 1fr; }
+    .process{ grid-template-columns: 1fr 1fr; }
+    .why-grid{ grid-template-columns: 1fr; }
+    .why-item{ border-top: 1px solid var(--line) !important; }
+    .why-item:first-child{ border-top: none !important; }
+    .cta{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px){
+    .nav-links{
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem clamp(1.25rem, 4vw, 2.5rem) 1.3rem;
+      display: none;
+      gap: 0.9rem;
+    }
+    .nav-links.open{ display: flex; }
+    .nav-toggle{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.2rem; height: 2.2rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: none;
+      color: var(--ink);
+    }
+    .nav-phone span{ display: none; }
+    .process{ grid-template-columns: 1fr; }
+    .hero-stats{ flex-wrap: wrap; row-gap: 1.2rem; }
+  }
+</style>
+
+<div class="promo-bar">🚚 Livraison gratuite &nbsp;·&nbsp; 🔧 Installation gratuite &nbsp;·&nbsp; 📦 Grand stock disponible — <a href="https://wa.me/221770642521" target="_blank" rel="noopener">réservez sur WhatsApp</a></div>
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand"><img src="img/logo-quali-portes.png" alt="Quali Portes — Portes &amp; tous matériaux de construction"></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#catalogue">Catalogue</a>
+      <a href="#comparatif">Comparatif</a>
+      <a href="#fabrication">Commander</a>
+      <a href="#pourquoi">Pourquoi nous</a>
+      <a href="#devis">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:+221770642521"><span>+221 77 064 25 21</span></a>
+      <a class="btn btn-primary btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Vente de portes — Mariste, Dakar</p>
+        <h1>Des portes en stock, <em>livrées et posées</em> gratuitement.</h1>
+        <p class="hero-lede">Portes en bois pour chambre et salle d'eau, portes vitrées deux battants pour le salon, portes blindées pour l'entrée. Grand stock disponible à Mariste — plus besoin d'attendre une fabrication.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander sur WhatsApp</a>
+          <a class="btn btn-ghost" href="#catalogue">Voir le catalogue</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>3</b><span>familles de portes</span></div>
+          <div class="stat"><b>Stock</b><span>grand stock disponible</span></div>
+          <div class="stat"><b>0&nbsp;FCFA</b><span>livraison à Dakar</span></div>
+          <div class="stat"><b>0&nbsp;FCFA</b><span>installation incluse</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g class="door-panel" style="transition-delay:0s">
+            <rect x="18" y="70" width="100" height="270" rx="4" fill="var(--steel-tint)" stroke="var(--steel)" stroke-width="2"/>
+            <line x1="18" y1="130" x2="118" y2="130" stroke="var(--steel)" stroke-width="1.2" opacity="0.5"/>
+            <line x1="18" y1="190" x2="118" y2="190" stroke="var(--steel)" stroke-width="1.2" opacity="0.5"/>
+            <line x1="18" y1="250" x2="118" y2="250" stroke="var(--steel)" stroke-width="1.2" opacity="0.5"/>
+            <circle cx="105" cy="215" r="4" fill="var(--steel)"/>
+          </g>
+          <g class="door-panel" style="transition-delay:0.05s">
+            <rect x="130" y="35" width="112" height="320" rx="4" fill="var(--wood-tint)" stroke="var(--wood-strong)" stroke-width="2.4"/>
+            <rect x="150" y="55" width="72" height="120" rx="2" fill="var(--glass-tint)" stroke="var(--glass)" stroke-width="1.5"/>
+            <line x1="186" y1="55" x2="186" y2="175" stroke="var(--glass)" stroke-width="1"/>
+            <line x1="150" y1="115" x2="222" y2="115" stroke="var(--glass)" stroke-width="1"/>
+            <line x1="150" y1="205" x2="222" y2="205" stroke="var(--wood-strong)" stroke-width="1" opacity="0.4"/>
+            <line x1="150" y1="235" x2="222" y2="235" stroke="var(--wood-strong)" stroke-width="1" opacity="0.4"/>
+            <line x1="150" y1="265" x2="222" y2="265" stroke="var(--wood-strong)" stroke-width="1" opacity="0.4"/>
+            <circle cx="222" cy="205" r="4.5" fill="var(--wood-strong)"/>
+          </g>
+          <g class="door-panel" style="transition-delay:0.1s">
+            <rect x="252" y="15" width="96" height="345" rx="3" fill="var(--forge-tint)" stroke="var(--forge)" stroke-width="3"/>
+            <g fill="var(--forge)">
+              <circle cx="262" cy="25" r="2.3"/><circle cx="338" cy="25" r="2.3"/>
+              <circle cx="262" cy="350" r="2.3"/><circle cx="338" cy="350" r="2.3"/>
+              <circle cx="262" cy="187" r="2.3"/><circle cx="338" cy="187" r="2.3"/>
+            </g>
+            <rect x="264" y="165" width="72" height="16" rx="2" fill="var(--forge)"/>
+            <circle cx="330" cy="130" r="3.5" fill="var(--forge)"/>
+            <circle cx="330" cy="187" r="3.5" fill="var(--forge)"/>
+            <circle cx="330" cy="244" r="3.5" fill="var(--forge)"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalogue">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Le catalogue</p>
+        <h2>Trois familles, en stock à Mariste</h2>
+        <p>Modèles disponibles immédiatement — livraison et installation gratuites incluses dans le prix affiché, partout à Dakar.</p>
+        <div class="materials">
+          <div class="material-chip"><span class="swatch pvc"></span> Bois ou PVC — chambre &amp; toilette</div>
+          <div class="material-chip"><span class="swatch bois"></span> Bois vitré — salon</div>
+          <div class="material-chip"><span class="swatch acier"></span> Double tôle d'acier</div>
+        </div>
+      </div>
+
+      <div class="catalog">
+        <article class="card reveal">
+          <div class="card-media split">
+            <img src="img/porte-bois-simple.jpg" alt="Porte simple en bois clair pour chambre">
+            <img src="img/porte-pvc-simple.jpg" alt="Porte simple en PVC blanc pour salle d'eau">
+            <span class="media-tag left">Bois</span>
+            <span class="media-tag right">PVC</span>
+          </div>
+          <div class="card-bar pvc"></div>
+          <div class="card-body">
+            <span class="card-tag pvc">Chambre &amp; salle d'eau</span>
+            <h3>Porte simple — Bois ou PVC</h3>
+            <p class="desc">Porte pleine pour chambre ou salle d'eau, au choix en bois ou en PVC, dans deux formats. Même prix, quel que soit le format ou le matériau.</p>
+            <ul class="spec-list mono">
+              <li><span>Format grand</span><span>102 × 217 cm</span></li>
+              <li><span>Format petit</span><span>92 × 217 cm</span></li>
+              <li><span>Disponibilité</span><span>En stock</span></li>
+            </ul>
+            <ul class="atouts">
+              <li>Livraison gratuite</li><li>Pose gratuite</li><li>En stock</li>
+            </ul>
+            <div class="card-foot">
+              <div class="price"><b>150 000 FCFA</b><span>bois ou PVC, les deux formats</span></div>
+              <a class="btn btn-ghost btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-media">
+            <img src="img/porte-salon-vitree.jpg" alt="Double porte en bois vitrée pour salon">
+            <span class="media-tag center">Bois vitré</span>
+          </div>
+          <div class="card-bar bois"></div>
+          <div class="card-body">
+            <span class="card-tag bois">Salon — deux battants</span>
+            <h3>Porte bois vitrée — Salon</h3>
+            <p class="desc">Deux battants vitrés pour l'entrée du salon&nbsp;: large passage et lumière naturelle, avec chambranle assorti.</p>
+            <ul class="spec-list mono">
+              <li><span>Format</span><span>154 × 217 cm</span></li>
+              <li><span>Battants</span><span>2, vitrés</span></li>
+              <li><span>Disponibilité</span><span>En stock</span></li>
+            </ul>
+            <ul class="atouts">
+              <li>Lumière naturelle</li><li>Livraison gratuite</li><li>Pose gratuite</li>
+            </ul>
+            <div class="card-foot">
+              <div class="price"><b>200 000 FCFA</b><span>prix affiché</span></div>
+              <a class="btn btn-ghost btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-media">
+            <img src="img/porte-blindee.jpg" alt="Portes blindées grises avec serrure multipoints">
+            <span class="media-tag center">Blindée</span>
+          </div>
+          <div class="card-bar acier"></div>
+          <div class="card-body">
+            <span class="card-tag acier">Entrée principale</span>
+            <h3>Porte blindée</h3>
+            <p class="desc">Double tôle d'acier et serrure multipoints pour sécuriser l'entrée principale. Livrée et posée sans frais additionnel.</p>
+            <ul class="spec-list mono">
+              <li><span>Format</span><span>110 × 214 cm</span></li>
+              <li><span>Serrure</span><span>Multipoints</span></li>
+              <li><span>Disponibilité</span><span>En stock</span></li>
+            </ul>
+            <ul class="atouts">
+              <li>Anti-effraction</li><li>Livraison gratuite</li><li>Pose gratuite</li>
+            </ul>
+            <div class="card-foot">
+              <div class="price"><b>230 000 FCFA</b><span>prix affiché</span></div>
+              <a class="btn btn-ghost btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="comparatif">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Comparatif</p>
+        <h2>De quoi votre ouverture a-t-elle besoin&nbsp;?</h2>
+        <p>Sécurité, isolation, entretien&nbsp;: chaque famille de porte a un point fort. Voici comment elles se comparent, poste par poste.</p>
+      </div>
+      <div class="table-scroll reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Type de porte</th>
+              <th>Format</th>
+              <th>Sécurité</th>
+              <th>Isolation</th>
+              <th>Entretien</th>
+              <th>Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Bois ou PVC — Chambre &amp; Toilette</th>
+              <td class="mono">92/102 × 217 cm</td>
+              <td><span class="dots"><i class="on"></i><i></i><i></i></span>Standard</td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i></i></span>Bonne<span class="cell-note">adaptée à l'humidité</span></td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span>Faible</td>
+              <td class="price-cell">150 000 FCFA</td>
+            </tr>
+            <tr>
+              <th>Bois vitrée — Salon</th>
+              <td class="mono">154 × 217 cm</td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i></i></span>Bonne</td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span>Excellente</td>
+              <td><span class="dots"><i class="on"></i><i></i><i></i></span>Vernis à reprendre</td>
+              <td class="price-cell">200 000 FCFA</td>
+            </tr>
+            <tr>
+              <th>Porte blindée</th>
+              <td class="mono">110 × 214 cm</td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span>Maximale</td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span>Excellente<span class="cell-note">isolation phonique incluse</span></td>
+              <td><span class="dots"><i class="on"></i><i class="on"></i><i></i></span>Faible</td>
+              <td class="price-cell">230 000 FCFA</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="fabrication">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Commander</p>
+        <h2>Du choix du modèle à la porte posée</h2>
+        <p>Le stock est disponible immédiatement — la commande se fait directement sur WhatsApp.</p>
+      </div>
+      <div class="process">
+        <div class="step reveal">
+          <div class="num">01</div>
+          <h3>Choisissez votre modèle</h3>
+          <p>Bois chambre/toilette, bois vitré salon ou blindée — dans le catalogue ci-dessus.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">02</div>
+          <h3>Confirmez sur WhatsApp</h3>
+          <p>Envoyez le modèle et votre adresse à Dakar pour valider la commande.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">03</div>
+          <h3>Livraison gratuite</h3>
+          <p>Votre porte est livrée depuis l'entrepôt de Mariste, sans frais additionnel.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">04</div>
+          <h3>Installation gratuite</h3>
+          <p>Pose, réglage des paumelles et test de la serrure sur place, inclus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Pourquoi Quali Portes</p>
+        <h2>Ce que vous obtenez avec chaque porte</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Livraison gratuite</h3><p>Votre porte est livrée directement à l'adresse indiquée, partout à Dakar, sans frais supplémentaire.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Installation gratuite</h3><p>Nos équipes posent et règlent la porte sur place, prête à l'usage, sans coût additionnel.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Grand stock disponible</h3><p>Bois, bois vitré et blindées disponibles immédiatement — pas d'attente de fabrication.</p></div>
+        </div>
+        <div class="why-item reveal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><h3>Visite de l'entrepôt</h3><p>Prenez rendez-vous sur WhatsApp pour voir les portes en stock à Mariste, Dakar.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="devis">
+    <div class="wrap">
+      <div class="cta reveal">
+        <div>
+          <p class="eyebrow" style="color:color-mix(in srgb, var(--bg) 65%, transparent)">Commander ou visiter</p>
+          <h2>Dites-nous la porte, on livre et on pose.</h2>
+          <p>Écrivez-nous le modèle souhaité et votre adresse à Dakar, ou prenez rendez-vous pour visiter l'entrepôt de Mariste.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://wa.me/221770642521" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+            <a class="btn btn-ghost" href="tel:+221770642521">Appeler</a>
+          </div>
+        </div>
+        <div class="contact-info">
+          <div class="contact-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <div><b>Mariste, Zone de Recasement, Almadies</b><span><a href="https://maps.google.com/?q=14.738155,-17.431776" target="_blank" rel="noopener" style="color:inherit">Voir sur la carte</a> · entrepôt sur rendez-vous</span></div>
+          </div>
+          <div class="contact-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L13 14l5 2v4a2 2 0 0 1-2 2C8.6 22 2 15.4 2 7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div><b>77 064 25 21 · 78 543 06 17</b><span>Appel ou WhatsApp</span></div>
+          </div>
+          <div class="contact-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="none"/><path d="M4 6h16v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <div><b>qualiportes064@gmail.com</b><span>Qualiporte.com</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span>© <span id="year"></span> Quali Portes — Portes &amp; tous matériaux de construction</span>
+      <span>Facebook · Instagram · TikTok — Quali Portes</span>
+    </div>
+    <p class="foot-note">Prix affichés pour livraison et installation gratuites à Dakar. Visuels donnés à titre indicatif — contactez-nous sur WhatsApp pour confirmer la disponibilité du modèle choisi.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if (toggle) {
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in-view'); });
+  }
+</script>
