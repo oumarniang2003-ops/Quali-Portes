@@ -418,6 +418,105 @@
   .price b{ font-size: 1.05rem; color: var(--ink); display:block; }
   .price span{ font-size: 0.68rem; color: var(--ink-soft); }
 
+  /* ---------- gallery ---------- */
+  .gallery-group{ margin-bottom: 2.4rem; }
+  .gallery-group:last-child{ margin-bottom: 0; }
+  .gallery-group h3{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+  .gallery-group h3 .swatch{ width: 1rem; height: 1rem; }
+  .gallery-count{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .gallery-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.7rem;
+  }
+  .gallery-item{
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    cursor: zoom-in;
+    padding: 0;
+    font: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: 100%;
+  }
+  .gallery-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .gallery-item:hover img{ transform: scale(1.06); }
+  .gallery-cap{
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 0.5rem 0.55rem 0.4rem;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.02em;
+    text-align: left;
+    background: linear-gradient(to top, rgba(23,20,15,0.78), transparent);
+    color: #F3EEE4;
+  }
+  .lightbox{
+    position: fixed;
+    inset: 0;
+    background: rgba(10,8,6,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    z-index: 100;
+  }
+  .lightbox[hidden]{ display: none; }
+  .lightbox figure{ margin: 0; max-width: min(92vw, 640px); }
+  .lightbox img{
+    display: block;
+    max-width: 100%;
+    max-height: 78vh;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    margin: 0 auto;
+  }
+  .lightbox figcaption{
+    margin-top: 0.9rem;
+    text-align: center;
+    color: #F3EEE4;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8rem;
+  }
+  .lightbox-close{
+    position: absolute;
+    top: 1.2rem;
+    right: 1.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.08);
+    color: #F3EEE4;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover{ background: rgba(255,255,255,0.18); }
+
   /* ---------- comparison table ---------- */
   .table-scroll{ overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
   table{
@@ -583,6 +682,7 @@
     <a href="#top" class="brand"><img src="img/logo-quali-portes.png" alt="Quali Portes — Portes &amp; tous matériaux de construction"></a>
     <nav class="nav-links" id="navLinks">
       <a href="#catalogue">Catalogue</a>
+      <a href="#galerie">Galerie</a>
       <a href="#comparatif">Comparatif</a>
       <a href="#fabrication">Commander</a>
       <a href="#pourquoi">Pourquoi nous</a>
@@ -718,7 +818,7 @@
 
         <article class="card reveal">
           <div class="card-media">
-            <img src="img/porte-blindee.jpg" alt="Portes blindées grises avec serrure multipoints">
+            <img src="img/porte-blindee.jpg" alt="Porte blindée anthracite avec serrure multipoints, en stock à l'entrepôt">
             <span class="media-tag center">Blindée</span>
           </div>
           <div class="card-bar acier"></div>
@@ -743,6 +843,94 @@
       </div>
     </div>
   </section>
+
+  <section id="galerie">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Galerie</p>
+        <h2>Toutes nos portes en stock, en photo</h2>
+        <p>Chaque modèle existe en plusieurs finitions — cliquez sur une photo pour l'agrandir. Le prix reste celui de sa famille, quelle que soit la finition choisie.</p>
+      </div>
+
+      <div class="gallery-group reveal">
+        <h3><span class="swatch pvc"></span> Porte simple — Chambre &amp; toilette <span class="gallery-count">6 finitions</span></h3>
+        <div class="gallery-grid">
+          <button class="gallery-item" data-caption="Porte simple — Bois clair">
+            <img src="img/porte-bois-simple.jpg" alt="Porte simple en bois clair">
+            <span class="gallery-cap">Bois clair</span>
+          </button>
+          <button class="gallery-item" data-caption="Porte simple — PVC blanc, ligné">
+            <img src="img/porte-pvc-simple.jpg" alt="Porte simple en PVC blanc avec lignes graphiques">
+            <span class="gallery-cap">PVC blanc, ligné</span>
+          </button>
+          <button class="gallery-item" data-caption="Porte simple — Bois grisé">
+            <img src="img/porte-simple-grise.jpg" alt="Porte simple en bois grisé">
+            <span class="gallery-cap">Bois grisé</span>
+          </button>
+          <button class="gallery-item" data-caption="Porte simple — Bois doré">
+            <img src="img/porte-simple-doree.jpg" alt="Porte simple en bois doré">
+            <span class="gallery-cap">Bois doré</span>
+          </button>
+          <button class="gallery-item" data-caption="Porte simple — Finition béton">
+            <img src="img/porte-simple-beton.jpg" alt="Porte simple finition béton grise">
+            <span class="gallery-cap">Finition béton</span>
+          </button>
+          <button class="gallery-item" data-caption="Porte simple — Béton, ligné">
+            <img src="img/porte-simple-beton-ligne.jpg" alt="Porte simple finition béton avec lignes graphiques">
+            <span class="gallery-cap">Béton, ligné</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="gallery-group reveal">
+        <h3><span class="swatch bois"></span> Porte bois vitrée — Salon <span class="gallery-count">5 finitions</span></h3>
+        <div class="gallery-grid">
+          <button class="gallery-item" data-caption="Salon deux battants — Noyer foncé">
+            <img src="img/porte-salon-vitree.jpg" alt="Double porte vitrée en noyer foncé pour salon">
+            <span class="gallery-cap">Noyer foncé</span>
+          </button>
+          <button class="gallery-item" data-caption="Salon deux battants — Gris pierre">
+            <img src="img/porte-salon-pierre.jpg" alt="Double porte vitrée finition gris pierre pour salon">
+            <span class="gallery-cap">Gris pierre</span>
+          </button>
+          <button class="gallery-item" data-caption="Salon deux battants — Blanc laqué">
+            <img src="img/porte-salon-blanc.jpg" alt="Double porte vitrée blanc laqué pour salon">
+            <span class="gallery-cap">Blanc laqué</span>
+          </button>
+          <button class="gallery-item" data-caption="Salon deux battants — Chêne clair">
+            <img src="img/porte-salon-chene.jpg" alt="Double porte vitrée en chêne clair pour salon">
+            <span class="gallery-cap">Chêne clair</span>
+          </button>
+          <button class="gallery-item" data-caption="Salon deux battants — Beige">
+            <img src="img/porte-salon-beige.jpg" alt="Double porte vitrée beige pour salon">
+            <span class="gallery-cap">Beige</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="gallery-group reveal">
+        <h3><span class="swatch acier"></span> Porte blindée <span class="gallery-count">2 finitions</span></h3>
+        <div class="gallery-grid">
+          <button class="gallery-item" data-caption="Porte blindée — Trio anthracite">
+            <img src="img/porte-blindee.jpg" alt="Trois portes blindées anthracite avec serrure multipoints">
+            <span class="gallery-cap">Trio anthracite</span>
+          </button>
+          <button class="gallery-item" data-caption="Porte blindée — Anthracite, serrure connectée, en entrepôt">
+            <img src="img/porte-blindee-entrepot.jpg" alt="Porte blindée anthracite avec serrure connectée, photo prise en entrepôt">
+            <span class="gallery-cap">En entrepôt</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">✕</button>
+    <figure>
+      <img id="lightboxImg" src="" alt="">
+      <figcaption id="lightboxCap"></figcaption>
+    </figure>
+  </div>
 
   <section id="comparatif">
     <div class="wrap">
@@ -908,6 +1096,23 @@
       a.addEventListener('click', function(){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
     });
   }
+
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxCap = document.getElementById('lightboxCap');
+  document.querySelectorAll('.gallery-item').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var img = btn.querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCap.textContent = btn.getAttribute('data-caption') || '';
+      lightbox.hidden = false;
+    });
+  });
+  function closeLightbox(){ lightbox.hidden = true; lightboxImg.src = ''; }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(entries){
