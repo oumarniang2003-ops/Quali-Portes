@@ -419,7 +419,38 @@
   .price span{ font-size: 0.68rem; color: var(--ink-soft); }
 
   /* ---------- gallery ---------- */
-  .gallery-group{ margin-bottom: 2.4rem; }
+  .gallery-intro{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .gallery-jump{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .gallery-jump a{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem 0.4rem 0.55rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .gallery-jump a:hover{ border-color: var(--ink-soft); transform: translateY(-1px); }
+  .gallery-jump .swatch{ width: 0.85rem; height: 0.85rem; }
+  .gallery-group{ margin-bottom: 2.4rem; scroll-margin-top: 5.5rem; }
   .gallery-group:last-child{ margin-bottom: 0; }
   .gallery-group h3{
     display: flex;
@@ -463,6 +494,20 @@
     transition: transform 0.35s ease;
   }
   .gallery-item:hover img{ transform: scale(1.06); }
+  .gallery-item::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E"),
+      linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18));
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: 24px 24px, cover;
+  }
+  .gallery-item:hover::after{ opacity: 1; }
   .gallery-cap{
     position: absolute;
     inset: auto 0 0 0;
@@ -477,7 +522,7 @@
   .lightbox{
     position: fixed;
     inset: 0;
-    background: rgba(10,8,6,0.88);
+    background: rgba(10,8,6,0.9);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -485,37 +530,100 @@
     z-index: 100;
   }
   .lightbox[hidden]{ display: none; }
-  .lightbox figure{ margin: 0; max-width: min(92vw, 640px); }
+  .lightbox-frame{ position: relative; max-width: min(92vw, 640px); width: 100%; }
+  .lightbox figure{ margin: 1rem 0 0; }
+  .lightbox-img-wrap{ position: relative; }
   .lightbox img{
     display: block;
     max-width: 100%;
-    max-height: 78vh;
+    max-height: 68vh;
     border-radius: 8px;
     box-shadow: 0 24px 60px rgba(0,0,0,0.5);
     margin: 0 auto;
   }
-  .lightbox figcaption{
-    margin-top: 0.9rem;
-    text-align: center;
-    color: #F3EEE4;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.8rem;
+  .lightbox-meta{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
-  .lightbox-close{
+  .lightbox-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .lightbox-cat{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, #F3EEE4 60%, transparent);
+  }
+  .lightbox figcaption{
+    margin: 0;
+    text-align: left;
+    color: #F3EEE4;
+    font-family: "Fraunces", serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  .lightbox-count{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: color-mix(in srgb, #F3EEE4 55%, transparent);
+    white-space: nowrap;
+  }
+  .lightbox-cta{
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.62rem 1.15rem;
+    border-radius: 3px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--wood);
+    color: #FBF9F3;
+    transition: background 0.15s ease;
+  }
+  .lightbox-cta:hover{ background: var(--wood-strong); }
+  .lightbox-close, .lightbox-nav{
     position: absolute;
-    top: 1.2rem;
-    right: 1.3rem;
-    width: 2.3rem;
-    height: 2.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,0.3);
     background: rgba(255,255,255,0.08);
     color: #F3EEE4;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .lightbox-close:hover, .lightbox-nav:hover{ background: rgba(255,255,255,0.18); }
+  .lightbox-close{
+    top: 1.2rem;
+    right: 1.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
     font-size: 1.2rem;
     line-height: 1;
-    cursor: pointer;
   }
-  .lightbox-close:hover{ background: rgba(255,255,255,0.18); }
+  .lightbox-nav{
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+  .lightbox-nav svg{ width: 1.2rem; height: 1.2rem; }
+  .lightbox-prev{ left: 0.8rem; }
+  .lightbox-next{ right: 0.8rem; }
+  @media (max-width: 700px){
+    .lightbox-nav{ width: 2.2rem; height: 2.2rem; }
+    .lightbox-prev{ left: 0.3rem; }
+    .lightbox-next{ right: 0.3rem; }
+  }
 
   /* ---------- comparison table ---------- */
   .table-scroll{ overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
@@ -852,8 +960,17 @@
         <p>Chaque modèle existe en plusieurs finitions — cliquez sur une photo pour l'agrandir. Le prix reste celui de sa famille, quelle que soit la finition choisie.</p>
       </div>
 
-      <div class="gallery-group reveal">
-        <h3><span class="swatch pvc"></span> Porte simple — Chambre &amp; toilette <span class="gallery-count">6 finitions</span></h3>
+      <div class="gallery-intro reveal">
+        <div class="gallery-jump">
+          <a href="#galerie-simple"><span class="swatch pvc"></span> Porte simple</a>
+          <a href="#galerie-salon"><span class="swatch bois"></span> Salon vitré</a>
+          <a href="#galerie-blindee"><span class="swatch acier"></span> Blindée</a>
+        </div>
+        <span class="gallery-count">17 photos</span>
+      </div>
+
+      <div class="gallery-group reveal" id="galerie-simple">
+        <h3><span class="swatch pvc"></span> <span class="cat-name">Porte simple — Chambre &amp; toilette</span> <span class="gallery-count">6 finitions</span></h3>
         <div class="gallery-grid">
           <button class="gallery-item" data-caption="Porte simple — Bois clair">
             <img src="img/porte-bois-simple.jpg" alt="Porte simple en bois clair">
@@ -882,8 +999,8 @@
         </div>
       </div>
 
-      <div class="gallery-group reveal">
-        <h3><span class="swatch bois"></span> Porte bois vitrée — Salon <span class="gallery-count">5 finitions</span></h3>
+      <div class="gallery-group reveal" id="galerie-salon">
+        <h3><span class="swatch bois"></span> <span class="cat-name">Porte bois vitrée — Salon</span> <span class="gallery-count">5 finitions</span></h3>
         <div class="gallery-grid">
           <button class="gallery-item" data-caption="Salon deux battants — Noyer foncé">
             <img src="img/porte-salon-vitree.jpg" alt="Double porte vitrée en noyer foncé pour salon">
@@ -908,8 +1025,8 @@
         </div>
       </div>
 
-      <div class="gallery-group reveal">
-        <h3><span class="swatch acier"></span> Porte blindée <span class="gallery-count">6 finitions</span></h3>
+      <div class="gallery-group reveal" id="galerie-blindee">
+        <h3><span class="swatch acier"></span> <span class="cat-name">Porte blindée</span> <span class="gallery-count">6 finitions</span></h3>
         <div class="gallery-grid">
           <button class="gallery-item" data-caption="Porte blindée — Trio anthracite">
             <img src="img/porte-blindee.jpg" alt="Trois portes blindées anthracite avec serrure multipoints">
@@ -941,11 +1058,28 @@
   </section>
 
   <div class="lightbox" id="lightbox" hidden>
-    <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">✕</button>
-    <figure>
-      <img id="lightboxImg" src="" alt="">
-      <figcaption id="lightboxCap"></figcaption>
-    </figure>
+    <div class="lightbox-frame">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">✕</button>
+      <div class="lightbox-img-wrap">
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Photo précédente">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <img id="lightboxImg" src="" alt="">
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Photo suivante">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <figure>
+        <div class="lightbox-meta">
+          <div class="lightbox-info">
+            <span class="lightbox-cat" id="lightboxCat"></span>
+            <figcaption id="lightboxCap"></figcaption>
+          </div>
+          <span class="lightbox-count" id="lightboxCount"></span>
+        </div>
+        <a class="lightbox-cta" id="lightboxCta" href="#" target="_blank" rel="noopener">Commander cette finition sur WhatsApp</a>
+      </figure>
+    </div>
   </div>
 
   <section id="comparatif">
@@ -1113,22 +1247,52 @@
     });
   }
 
+  var galleryButtons = Array.prototype.slice.call(document.querySelectorAll('.gallery-item'));
+  galleryButtons.forEach(function(btn){ btn.querySelector('img').loading = 'lazy'; btn.querySelector('img').decoding = 'async'; });
+
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
   var lightboxCap = document.getElementById('lightboxCap');
-  document.querySelectorAll('.gallery-item').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var img = btn.querySelector('img');
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightboxCap.textContent = btn.getAttribute('data-caption') || '';
-      lightbox.hidden = false;
-    });
-  });
+  var lightboxCat = document.getElementById('lightboxCat');
+  var lightboxCount = document.getElementById('lightboxCount');
+  var lightboxCta = document.getElementById('lightboxCta');
+  var currentIndex = 0;
+
+  function renderLightbox(){
+    var btn = galleryButtons[currentIndex];
+    var img = btn.querySelector('img');
+    var caption = btn.getAttribute('data-caption') || '';
+    var group = btn.closest('.gallery-group');
+    var catName = group ? group.querySelector('.cat-name').textContent : '';
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCap.textContent = caption;
+    lightboxCat.textContent = catName;
+    lightboxCount.textContent = (currentIndex + 1) + ' / ' + galleryButtons.length;
+    lightboxCta.href = 'https://wa.me/221770642521?text=' + encodeURIComponent('Bonjour, je suis intéressé(e) par : ' + caption + '. Est-elle disponible ?');
+  }
+  function openLightbox(index){
+    currentIndex = index;
+    renderLightbox();
+    lightbox.hidden = false;
+  }
   function closeLightbox(){ lightbox.hidden = true; lightboxImg.src = ''; }
+  function showPrev(){ currentIndex = (currentIndex - 1 + galleryButtons.length) % galleryButtons.length; renderLightbox(); }
+  function showNext(){ currentIndex = (currentIndex + 1) % galleryButtons.length; renderLightbox(); }
+
+  galleryButtons.forEach(function(btn, i){
+    btn.addEventListener('click', function(){ openLightbox(i); });
+  });
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', showPrev);
+  document.getElementById('lightboxNext').addEventListener('click', showNext);
   lightbox.addEventListener('click', function(e){ if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', function(e){
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
 
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(entries){
