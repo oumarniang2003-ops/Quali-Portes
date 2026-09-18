@@ -427,14 +427,103 @@
   .card-foot{
     margin-top: auto;
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.4rem;
+  }
+  .card-foot-row{
+    display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.8rem;
-    padding-top: 0.4rem;
   }
   .price{ font-family: "JetBrains Mono", monospace; }
   .price b{ font-size: 1.05rem; color: var(--ink); display:block; }
   .price span{ font-size: 0.68rem; color: var(--ink-soft); }
+
+  .qty-stepper{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.2rem;
+    background: var(--surface-2);
+    flex-shrink: 0;
+  }
+  .qty-btn{
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-family: inherit;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .qty-btn:hover{ background: var(--wood-tint); color: var(--wood-strong); }
+  .qty-value{
+    min-width: 1.3rem;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .card-subtotal{
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+  .card-subtotal b{ color: var(--wood-strong); font-family: "JetBrains Mono", monospace; }
+
+  /* ---------- quote builder ---------- */
+  .quote-panel{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.4rem;
+  }
+  .quote-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+  .quote-head h3{ font-size: 1.1rem; }
+  .quote-hint{ font-size: 0.78rem; color: var(--ink-soft); }
+  .quote-lines{ display: flex; flex-direction: column; gap: 0.5rem; }
+  .quote-line{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .quote-line b{ font-family: "JetBrains Mono", monospace; white-space: nowrap; }
+  .quote-empty{ font-size: 0.85rem; color: var(--ink-soft); font-style: italic; }
+  .quote-total-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 2px solid var(--ink);
+    font-family: "Fraunces", serif;
+    font-size: 1.2rem;
+    font-weight: 620;
+  }
+  .quote-total-row b{ font-family: "JetBrains Mono", monospace; color: var(--wood-strong); }
 
   /* ---------- gallery ---------- */
   .gallery-intro{
@@ -885,8 +974,15 @@
               <li>Livraison gratuite</li><li>Pose gratuite</li><li>En stock</li>
             </ul>
             <div class="card-foot">
-              <div class="price"><b>150 000 FCFA</b><span>bois ou PVC, les deux formats</span></div>
-              <a class="btn btn-ghost btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander</a>
+              <div class="card-foot-row">
+                <div class="price"><b>150 000 FCFA</b><span>bois ou PVC, les deux formats</span></div>
+                <div class="qty-stepper" data-product="simple" data-price="150000" data-name="Porte simple — Bois ou PVC">
+                  <button type="button" class="qty-btn qty-minus" aria-label="Retirer une porte simple">−</button>
+                  <span class="qty-value" data-qty>0</span>
+                  <button type="button" class="qty-btn qty-plus" aria-label="Ajouter une porte simple">+</button>
+                </div>
+              </div>
+              <p class="card-subtotal" data-subtotal hidden>Sous-total&nbsp;: <b>0 FCFA</b></p>
             </div>
           </div>
         </article>
@@ -910,8 +1006,15 @@
               <li>Lumière naturelle</li><li>Livraison gratuite</li><li>Pose gratuite</li>
             </ul>
             <div class="card-foot">
-              <div class="price"><b>200 000 FCFA</b><span>prix affiché</span></div>
-              <a class="btn btn-ghost btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander</a>
+              <div class="card-foot-row">
+                <div class="price"><b>200 000 FCFA</b><span>prix affiché</span></div>
+                <div class="qty-stepper" data-product="salon" data-price="200000" data-name="Porte bois vitrée — Salon">
+                  <button type="button" class="qty-btn qty-minus" aria-label="Retirer une porte salon">−</button>
+                  <span class="qty-value" data-qty>0</span>
+                  <button type="button" class="qty-btn qty-plus" aria-label="Ajouter une porte salon">+</button>
+                </div>
+              </div>
+              <p class="card-subtotal" data-subtotal hidden>Sous-total&nbsp;: <b>0 FCFA</b></p>
             </div>
           </div>
         </article>
@@ -935,8 +1038,15 @@
               <li>Anti-effraction</li><li>Livraison gratuite</li><li>Pose gratuite</li>
             </ul>
             <div class="card-foot">
-              <div class="price"><b>230 000 FCFA</b><span>prix affiché</span></div>
-              <a class="btn btn-ghost btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">Commander</a>
+              <div class="card-foot-row">
+                <div class="price"><b>230 000 FCFA</b><span>prix affiché</span></div>
+                <div class="qty-stepper" data-product="blindee" data-price="230000" data-name="Porte blindée">
+                  <button type="button" class="qty-btn qty-minus" aria-label="Retirer une porte blindée">−</button>
+                  <span class="qty-value" data-qty>0</span>
+                  <button type="button" class="qty-btn qty-plus" aria-label="Ajouter une porte blindée">+</button>
+                </div>
+              </div>
+              <p class="card-subtotal" data-subtotal hidden>Sous-total&nbsp;: <b>0 FCFA</b></p>
             </div>
           </div>
         </article>
@@ -1185,13 +1295,27 @@
 
   <section id="devis">
     <div class="wrap">
+      <div class="quote-panel reveal">
+        <div class="quote-head">
+          <h3>Votre devis</h3>
+          <span class="quote-hint">Ajustez les quantités dans le catalogue ci-dessus — le total se calcule automatiquement</span>
+        </div>
+        <ul class="quote-lines" id="quoteLines">
+          <li class="quote-empty" id="quoteEmpty">Aucune porte sélectionnée pour l'instant.</li>
+        </ul>
+        <div class="quote-total-row">
+          <span>Total</span>
+          <b id="quoteTotal">0 FCFA</b>
+        </div>
+      </div>
+
       <div class="cta reveal">
         <div>
           <p class="eyebrow" style="color:color-mix(in srgb, var(--bg) 65%, transparent)">Commander ou visiter</p>
           <h2>Dites-nous la porte, on livre et on pose.</h2>
           <p>Écrivez-nous le modèle souhaité et votre adresse à Dakar, ou prenez rendez-vous pour visiter l'entrepôt de Mariste.</p>
           <div class="cta-actions">
-            <a class="btn btn-primary" href="https://wa.me/221770642521" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+            <a class="btn btn-primary" id="quoteWhatsapp" href="https://wa.me/221770642521" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
             <a class="btn btn-ghost" href="tel:+221770642521">Appeler</a>
           </div>
         </div>
@@ -1226,6 +1350,74 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  function fmtFCFA(n){ return new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'; }
+
+  var quoteQty = {};
+  var quoteLinesEl = document.getElementById('quoteLines');
+  var quoteEmptyEl = document.getElementById('quoteEmpty');
+  var quoteTotalEl = document.getElementById('quoteTotal');
+  var quoteWhatsappEl = document.getElementById('quoteWhatsapp');
+
+  function renderQuote(){
+    var steppers = document.querySelectorAll('.qty-stepper');
+    quoteLinesEl.querySelectorAll('.quote-line').forEach(function(n){ n.remove(); });
+    var total = 0;
+    var messageLines = [];
+    steppers.forEach(function(el){
+      var product = el.getAttribute('data-product');
+      var qty = quoteQty[product] || 0;
+      if (qty <= 0) return;
+      var price = Number(el.getAttribute('data-price'));
+      var name = el.getAttribute('data-name');
+      var subtotal = qty * price;
+      total += subtotal;
+      messageLines.push('- ' + qty + ' x ' + name + ' = ' + fmtFCFA(subtotal));
+      var li = document.createElement('li');
+      li.className = 'quote-line';
+      li.innerHTML = '<span>' + qty + '× ' + name + '</span><b>' + fmtFCFA(subtotal) + '</b>';
+      quoteLinesEl.insertBefore(li, quoteEmptyEl);
+    });
+    quoteEmptyEl.hidden = messageLines.length > 0;
+    quoteTotalEl.textContent = fmtFCFA(total);
+
+    if (messageLines.length > 0) {
+      var msg = 'Bonjour, je souhaite ce devis :\n' + messageLines.join('\n') + '\nTotal : ' + fmtFCFA(total);
+      quoteWhatsappEl.href = 'https://wa.me/221770642521?text=' + encodeURIComponent(msg);
+      quoteWhatsappEl.textContent = 'Envoyer ce devis sur WhatsApp';
+    } else {
+      quoteWhatsappEl.href = 'https://wa.me/221770642521';
+      quoteWhatsappEl.textContent = 'Écrire sur WhatsApp';
+    }
+  }
+
+  document.querySelectorAll('.qty-stepper').forEach(function(el){
+    var product = el.getAttribute('data-product');
+    var price = Number(el.getAttribute('data-price'));
+    quoteQty[product] = 0;
+    var valueEl = el.querySelector('[data-qty]');
+    var subtotalEl = el.closest('.card-foot').querySelector('[data-subtotal]');
+
+    function update(){
+      valueEl.textContent = quoteQty[product];
+      var subtotal = quoteQty[product] * price;
+      if (quoteQty[product] > 0) {
+        subtotalEl.hidden = false;
+        subtotalEl.querySelector('b').textContent = fmtFCFA(subtotal);
+      } else {
+        subtotalEl.hidden = true;
+      }
+      renderQuote();
+    }
+    el.querySelector('.qty-minus').addEventListener('click', function(){
+      quoteQty[product] = Math.max(0, quoteQty[product] - 1);
+      update();
+    });
+    el.querySelector('.qty-plus').addEventListener('click', function(){
+      quoteQty[product] = Math.min(99, quoteQty[product] + 1);
+      update();
+    });
+  });
 
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
