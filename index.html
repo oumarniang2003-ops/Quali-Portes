@@ -483,14 +483,6 @@
     font-size: 0.92rem;
     font-weight: 600;
   }
-  .card-subtotal{
-    margin: 0;
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    text-align: right;
-  }
-  .card-subtotal b{ color: var(--wood-strong); font-family: "JetBrains Mono", monospace; }
-
   /* ---------- quote builder ---------- */
   .quote-panel{
     background: var(--surface);
@@ -519,6 +511,27 @@
     border-bottom: 1px solid var(--line);
   }
   .quote-line b{ font-family: "JetBrains Mono", monospace; white-space: nowrap; }
+  .quote-line-controls{ display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
+  .cart-badge{
+    position: fixed;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--wood);
+    color: #FBF9F3;
+    padding: 0.7rem 1.05rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .cart-badge:hover{ background: var(--wood-strong); transform: translateY(-2px); }
+  .cart-badge[hidden]{ display: none; }
   .quote-empty{ font-size: 0.85rem; color: var(--ink-soft); font-style: italic; }
   .quote-total-row{
     display: flex;
@@ -593,23 +606,30 @@
     overflow: hidden;
     border: 1px solid var(--line);
     background: var(--surface-2);
-    cursor: zoom-in;
+  }
+  .gallery-view{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
     padding: 0;
+    border: none;
+    background: none;
     font: inherit;
     appearance: none;
     -webkit-appearance: none;
-    display: block;
-    width: 100%;
+    cursor: zoom-in;
   }
-  .gallery-item img{
+  .gallery-view img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     transition: transform 0.35s ease;
   }
-  .gallery-item:hover img{ transform: scale(1.06); }
-  .gallery-item::after{
+  .gallery-item:hover .gallery-view img{ transform: scale(1.06); }
+  .gallery-view::after{
     content: "";
     position: absolute;
     inset: 0;
@@ -622,7 +642,7 @@
     background-position: center, center;
     background-size: 24px 24px, cover;
   }
-  .gallery-item:hover::after{ opacity: 1; }
+  .gallery-item:hover .gallery-view::after{ opacity: 1; }
   .gallery-cap{
     position: absolute;
     inset: auto 0 0 0;
@@ -634,6 +654,29 @@
     background: linear-gradient(to top, rgba(23,20,15,0.78), transparent);
     color: #F3EEE4;
   }
+  .gallery-add{
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    z-index: 3;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--wood);
+    color: #FBF9F3;
+    font-size: 1.05rem;
+    line-height: 1;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .gallery-add:hover{ background: var(--wood-strong); }
+  .gallery-add.added{ background: var(--forge); transform: scale(1.12); }
   .lightbox{
     position: fixed;
     inset: 0;
@@ -689,8 +732,14 @@
     color: color-mix(in srgb, #F3EEE4 55%, transparent);
     white-space: nowrap;
   }
-  .lightbox-cta{
+  .lightbox-actions{
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .lightbox-cta{
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -699,11 +748,20 @@
     font-size: 0.86rem;
     font-weight: 600;
     text-decoration: none;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
     background: var(--wood);
     color: #FBF9F3;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, transform 0.15s ease;
   }
   .lightbox-cta:hover{ background: var(--wood-strong); }
+  .lightbox-cta.added{ background: var(--forge); }
+  .lightbox-link{
+    font-size: 0.78rem;
+    color: color-mix(in srgb, #F3EEE4 65%, transparent);
+    text-decoration: underline;
+  }
   .lightbox-close, .lightbox-nav{
     position: absolute;
     display: flex;
@@ -984,13 +1042,8 @@
             <div class="card-foot">
               <div class="card-foot-row">
                 <div class="price"><b>150 000 FCFA</b><span>bois ou PVC, les deux formats</span></div>
-                <div class="qty-stepper" data-product="simple" data-price="150000" data-name="Porte simple — Bois ou PVC">
-                  <button type="button" class="qty-btn qty-minus" aria-label="Retirer une porte simple">−</button>
-                  <span class="qty-value" data-qty>0</span>
-                  <button type="button" class="qty-btn qty-plus" aria-label="Ajouter une porte simple">+</button>
-                </div>
+                <a class="btn btn-ghost btn-sm" href="#galerie-simple">Choisir la couleur</a>
               </div>
-              <p class="card-subtotal" data-subtotal hidden>Sous-total&nbsp;: <b>0 FCFA</b></p>
             </div>
           </div>
         </article>
@@ -1016,13 +1069,8 @@
             <div class="card-foot">
               <div class="card-foot-row">
                 <div class="price"><b>200 000 FCFA</b><span>prix affiché</span></div>
-                <div class="qty-stepper" data-product="salon" data-price="200000" data-name="Porte bois vitrée — Salon">
-                  <button type="button" class="qty-btn qty-minus" aria-label="Retirer une porte salon">−</button>
-                  <span class="qty-value" data-qty>0</span>
-                  <button type="button" class="qty-btn qty-plus" aria-label="Ajouter une porte salon">+</button>
-                </div>
+                <a class="btn btn-ghost btn-sm" href="#galerie-salon">Choisir la couleur</a>
               </div>
-              <p class="card-subtotal" data-subtotal hidden>Sous-total&nbsp;: <b>0 FCFA</b></p>
             </div>
           </div>
         </article>
@@ -1048,13 +1096,8 @@
             <div class="card-foot">
               <div class="card-foot-row">
                 <div class="price"><b>230 000 FCFA</b><span>prix affiché</span></div>
-                <div class="qty-stepper" data-product="blindee" data-price="230000" data-name="Porte blindée">
-                  <button type="button" class="qty-btn qty-minus" aria-label="Retirer une porte blindée">−</button>
-                  <span class="qty-value" data-qty>0</span>
-                  <button type="button" class="qty-btn qty-plus" aria-label="Ajouter une porte blindée">+</button>
-                </div>
+                <a class="btn btn-ghost btn-sm" href="#galerie-blindee">Choisir la couleur</a>
               </div>
-              <p class="card-subtotal" data-subtotal hidden>Sous-total&nbsp;: <b>0 FCFA</b></p>
             </div>
           </div>
         </article>
@@ -1082,86 +1125,137 @@
       <div class="gallery-group reveal" id="galerie-simple">
         <h3><span class="swatch pvc"></span> <span class="cat-name">Porte simple — Chambre &amp; toilette</span> <span class="gallery-count">6 finitions</span></h3>
         <div class="gallery-grid">
-          <button class="gallery-item" data-caption="Porte simple — Bois clair">
-            <img src="img/porte-bois-simple.jpg" alt="Porte simple en bois clair">
-            <span class="gallery-cap">Bois clair</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte simple — PVC blanc, ligné">
-            <img src="img/porte-pvc-simple.jpg" alt="Porte simple en PVC blanc avec lignes graphiques">
-            <span class="gallery-cap">PVC blanc, ligné</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte simple — Bois grisé">
-            <img src="img/porte-simple-grise.jpg" alt="Porte simple en bois grisé">
-            <span class="gallery-cap">Bois grisé</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte simple — Bois doré">
-            <img src="img/porte-simple-doree.jpg" alt="Porte simple en bois doré">
-            <span class="gallery-cap">Bois doré</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte simple — Finition béton">
-            <img src="img/porte-simple-beton.jpg" alt="Porte simple finition béton grise">
-            <span class="gallery-cap">Finition béton</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte simple — Béton, ligné">
-            <img src="img/porte-simple-beton-ligne.jpg" alt="Porte simple finition béton avec lignes graphiques">
-            <span class="gallery-cap">Béton, ligné</span>
-          </button>
+          <div class="gallery-item" data-caption="Porte simple — Bois clair" data-price="150000">
+            <button type="button" class="gallery-view" data-caption="Porte simple — Bois clair">
+              <img src="img/porte-bois-simple.jpg" alt="Porte simple en bois clair">
+              <span class="gallery-cap">Bois clair</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte simple Bois clair au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte simple — PVC blanc, ligné" data-price="150000">
+            <button type="button" class="gallery-view" data-caption="Porte simple — PVC blanc, ligné">
+              <img src="img/porte-pvc-simple.jpg" alt="Porte simple en PVC blanc avec lignes graphiques">
+              <span class="gallery-cap">PVC blanc, ligné</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte simple PVC blanc au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte simple — Bois grisé" data-price="150000">
+            <button type="button" class="gallery-view" data-caption="Porte simple — Bois grisé">
+              <img src="img/porte-simple-grise.jpg" alt="Porte simple en bois grisé">
+              <span class="gallery-cap">Bois grisé</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte simple Bois grisé au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte simple — Bois doré" data-price="150000">
+            <button type="button" class="gallery-view" data-caption="Porte simple — Bois doré">
+              <img src="img/porte-simple-doree.jpg" alt="Porte simple en bois doré">
+              <span class="gallery-cap">Bois doré</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte simple Bois doré au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte simple — Finition béton" data-price="150000">
+            <button type="button" class="gallery-view" data-caption="Porte simple — Finition béton">
+              <img src="img/porte-simple-beton.jpg" alt="Porte simple finition béton grise">
+              <span class="gallery-cap">Finition béton</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte simple Finition béton au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte simple — Béton, ligné" data-price="150000">
+            <button type="button" class="gallery-view" data-caption="Porte simple — Béton, ligné">
+              <img src="img/porte-simple-beton-ligne.jpg" alt="Porte simple finition béton avec lignes graphiques">
+              <span class="gallery-cap">Béton, ligné</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte simple Béton ligné au panier">+</button>
+          </div>
         </div>
       </div>
 
       <div class="gallery-group reveal" id="galerie-salon">
         <h3><span class="swatch bois"></span> <span class="cat-name">Porte bois vitrée — Salon</span> <span class="gallery-count">5 finitions</span></h3>
         <div class="gallery-grid">
-          <button class="gallery-item" data-caption="Salon deux battants — Noyer foncé">
-            <img src="img/porte-salon-vitree.jpg" alt="Double porte vitrée en noyer foncé pour salon">
-            <span class="gallery-cap">Noyer foncé</span>
-          </button>
-          <button class="gallery-item" data-caption="Salon deux battants — Gris pierre">
-            <img src="img/porte-salon-pierre.jpg" alt="Double porte vitrée finition gris pierre pour salon">
-            <span class="gallery-cap">Gris pierre</span>
-          </button>
-          <button class="gallery-item" data-caption="Salon deux battants — Blanc laqué">
-            <img src="img/porte-salon-blanc.jpg" alt="Double porte vitrée blanc laqué pour salon">
-            <span class="gallery-cap">Blanc laqué</span>
-          </button>
-          <button class="gallery-item" data-caption="Salon deux battants — Chêne clair">
-            <img src="img/porte-salon-chene.jpg" alt="Double porte vitrée en chêne clair pour salon">
-            <span class="gallery-cap">Chêne clair</span>
-          </button>
-          <button class="gallery-item" data-caption="Salon deux battants — Beige">
-            <img src="img/porte-salon-beige.jpg" alt="Double porte vitrée beige pour salon">
-            <span class="gallery-cap">Beige</span>
-          </button>
+          <div class="gallery-item" data-caption="Salon deux battants — Noyer foncé" data-price="200000">
+            <button type="button" class="gallery-view" data-caption="Salon deux battants — Noyer foncé">
+              <img src="img/porte-salon-vitree.jpg" alt="Double porte vitrée en noyer foncé pour salon">
+              <span class="gallery-cap">Noyer foncé</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Salon Noyer foncé au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Salon deux battants — Gris pierre" data-price="200000">
+            <button type="button" class="gallery-view" data-caption="Salon deux battants — Gris pierre">
+              <img src="img/porte-salon-pierre.jpg" alt="Double porte vitrée finition gris pierre pour salon">
+              <span class="gallery-cap">Gris pierre</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Salon Gris pierre au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Salon deux battants — Blanc laqué" data-price="200000">
+            <button type="button" class="gallery-view" data-caption="Salon deux battants — Blanc laqué">
+              <img src="img/porte-salon-blanc.jpg" alt="Double porte vitrée blanc laqué pour salon">
+              <span class="gallery-cap">Blanc laqué</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Salon Blanc laqué au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Salon deux battants — Chêne clair" data-price="200000">
+            <button type="button" class="gallery-view" data-caption="Salon deux battants — Chêne clair">
+              <img src="img/porte-salon-chene.jpg" alt="Double porte vitrée en chêne clair pour salon">
+              <span class="gallery-cap">Chêne clair</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Salon Chêne clair au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Salon deux battants — Beige" data-price="200000">
+            <button type="button" class="gallery-view" data-caption="Salon deux battants — Beige">
+              <img src="img/porte-salon-beige.jpg" alt="Double porte vitrée beige pour salon">
+              <span class="gallery-cap">Beige</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Salon Beige au panier">+</button>
+          </div>
         </div>
       </div>
 
       <div class="gallery-group reveal" id="galerie-blindee">
         <h3><span class="swatch acier"></span> <span class="cat-name">Porte blindée</span> <span class="gallery-count">6 finitions</span></h3>
         <div class="gallery-grid">
-          <button class="gallery-item" data-caption="Porte blindée — Trio anthracite">
-            <img src="img/porte-blindee.jpg" alt="Trois portes blindées anthracite avec serrure multipoints">
-            <span class="gallery-cap">Trio anthracite</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte blindée — Anthracite, serrure connectée, en entrepôt">
-            <img src="img/porte-blindee-entrepot.jpg" alt="Porte blindée anthracite avec serrure connectée, photo prise en entrepôt">
-            <span class="gallery-cap">En entrepôt</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte blindée — Finition béton, posée à l'entrée">
-            <img src="img/porte-blindee-beton-entree.jpg" alt="Porte blindée finition béton grise posée à l'entrée d'un appartement">
-            <span class="gallery-cap">Finition béton</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte blindée — Serrure connectée à empreinte">
-            <img src="img/porte-blindee-connectee.jpg" alt="Porte blindée grise avec serrure connectée à empreinte digitale">
-            <span class="gallery-cap">Serrure connectée</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte blindée — Graphite rainurée">
-            <img src="img/porte-blindee-graphite.jpg" alt="Porte blindée graphite avec rainures verticales">
-            <span class="gallery-cap">Graphite rainurée</span>
-          </button>
-          <button class="gallery-item" data-caption="Porte blindée — Noire, ligne verticale">
-            <img src="img/porte-blindee-noire.jpg" alt="Porte blindée noire avec ligne verticale décorative">
-            <span class="gallery-cap">Noire, ligné</span>
-          </button>
+          <div class="gallery-item" data-caption="Porte blindée — Trio anthracite" data-price="230000">
+            <button type="button" class="gallery-view" data-caption="Porte blindée — Trio anthracite">
+              <img src="img/porte-blindee.jpg" alt="Trois portes blindées anthracite avec serrure multipoints">
+              <span class="gallery-cap">Trio anthracite</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte blindée Trio anthracite au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte blindée — Anthracite, serrure connectée, en entrepôt" data-price="230000">
+            <button type="button" class="gallery-view" data-caption="Porte blindée — Anthracite, serrure connectée, en entrepôt">
+              <img src="img/porte-blindee-entrepot.jpg" alt="Porte blindée anthracite avec serrure connectée, photo prise en entrepôt">
+              <span class="gallery-cap">En entrepôt</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte blindée En entrepôt au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte blindée — Finition béton, posée à l'entrée" data-price="230000">
+            <button type="button" class="gallery-view" data-caption="Porte blindée — Finition béton, posée à l'entrée">
+              <img src="img/porte-blindee-beton-entree.jpg" alt="Porte blindée finition béton grise posée à l'entrée d'un appartement">
+              <span class="gallery-cap">Finition béton</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte blindée Finition béton au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte blindée — Serrure connectée à empreinte" data-price="230000">
+            <button type="button" class="gallery-view" data-caption="Porte blindée — Serrure connectée à empreinte">
+              <img src="img/porte-blindee-connectee.jpg" alt="Porte blindée grise avec serrure connectée à empreinte digitale">
+              <span class="gallery-cap">Serrure connectée</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte blindée Serrure connectée au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte blindée — Graphite rainurée" data-price="230000">
+            <button type="button" class="gallery-view" data-caption="Porte blindée — Graphite rainurée">
+              <img src="img/porte-blindee-graphite.jpg" alt="Porte blindée graphite avec rainures verticales">
+              <span class="gallery-cap">Graphite rainurée</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte blindée Graphite rainurée au panier">+</button>
+          </div>
+          <div class="gallery-item" data-caption="Porte blindée — Noire, ligne verticale" data-price="230000">
+            <button type="button" class="gallery-view" data-caption="Porte blindée — Noire, ligne verticale">
+              <img src="img/porte-blindee-noire.jpg" alt="Porte blindée noire avec ligne verticale décorative">
+              <span class="gallery-cap">Noire, ligné</span>
+            </button>
+            <button type="button" class="gallery-add" aria-label="Ajouter Porte blindée Noire ligné au panier">+</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1187,10 +1281,15 @@
           </div>
           <span class="lightbox-count" id="lightboxCount"></span>
         </div>
-        <a class="lightbox-cta" id="lightboxCta" href="#" target="_blank" rel="noopener">Commander cette finition sur WhatsApp</a>
+        <div class="lightbox-actions">
+          <button type="button" class="lightbox-cta" id="lightboxAdd">Ajouter au panier</button>
+          <a class="lightbox-link" id="lightboxCta" href="#" target="_blank" rel="noopener">ou écrire directement sur WhatsApp</a>
+        </div>
       </figure>
     </div>
   </div>
+
+  <a href="#devis" class="cart-badge" id="cartBadge" hidden>🛒 <span data-count>0</span> porte(s) — voir le devis</a>
 
   <section id="comparatif">
     <div class="wrap">
@@ -1306,7 +1405,7 @@
       <div class="quote-panel reveal">
         <div class="quote-head">
           <h3>Votre devis</h3>
-          <span class="quote-hint">Ajustez les quantités dans le catalogue ci-dessus — le total se calcule automatiquement</span>
+          <span class="quote-hint">Choisissez le type et la couleur dans la galerie ci-dessus, ajoutez au panier — le total se calcule automatiquement</span>
         </div>
         <ul class="quote-lines" id="quoteLines">
           <li class="quote-empty" id="quoteEmpty">Aucune porte sélectionnée pour l'instant.</li>
@@ -1361,35 +1460,72 @@
 
   function fmtFCFA(n){ return new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'; }
 
-  var quoteQty = {};
+  var cart = {};
   var quoteLinesEl = document.getElementById('quoteLines');
   var quoteEmptyEl = document.getElementById('quoteEmpty');
   var quoteTotalEl = document.getElementById('quoteTotal');
   var quoteWhatsappEl = document.getElementById('quoteWhatsapp');
+  var cartBadge = document.getElementById('cartBadge');
 
-  function renderQuote(){
-    var steppers = document.querySelectorAll('.qty-stepper');
+  function addToCart(name, price, delta){
+    if (!cart[name]) cart[name] = { name: name, price: price, qty: 0 };
+    cart[name].qty = Math.max(0, Math.min(99, cart[name].qty + delta));
+    if (cart[name].qty === 0) delete cart[name];
+    renderCart();
+  }
+
+  function renderCart(){
     quoteLinesEl.querySelectorAll('.quote-line').forEach(function(n){ n.remove(); });
+    var keys = Object.keys(cart);
     var total = 0;
     var messageLines = [];
-    steppers.forEach(function(el){
-      var product = el.getAttribute('data-product');
-      var qty = quoteQty[product] || 0;
-      if (qty <= 0) return;
-      var price = Number(el.getAttribute('data-price'));
-      var name = el.getAttribute('data-name');
-      var subtotal = qty * price;
+    var totalCount = 0;
+
+    keys.forEach(function(key){
+      var item = cart[key];
+      var subtotal = item.qty * item.price;
       total += subtotal;
-      messageLines.push('- ' + qty + ' x ' + name + ' = ' + fmtFCFA(subtotal));
+      totalCount += item.qty;
+      messageLines.push('- ' + item.qty + ' x ' + item.name + ' = ' + fmtFCFA(subtotal));
+
       var li = document.createElement('li');
       li.className = 'quote-line';
-      li.innerHTML = '<span>' + qty + '× ' + name + '</span><b>' + fmtFCFA(subtotal) + '</b>';
+
+      var info = document.createElement('div');
+      info.className = 'quote-line-info';
+      info.textContent = item.name;
+
+      var controls = document.createElement('div');
+      controls.className = 'quote-line-controls';
+
+      var stepper = document.createElement('div');
+      stepper.className = 'qty-stepper';
+      var minus = document.createElement('button');
+      minus.type = 'button'; minus.className = 'qty-btn'; minus.textContent = '−';
+      minus.setAttribute('aria-label', 'Retirer ' + item.name);
+      minus.addEventListener('click', function(){ addToCart(key, item.price, -1); });
+      var qtySpan = document.createElement('span');
+      qtySpan.className = 'qty-value'; qtySpan.textContent = item.qty;
+      var plus = document.createElement('button');
+      plus.type = 'button'; plus.className = 'qty-btn'; plus.textContent = '+';
+      plus.setAttribute('aria-label', 'Ajouter ' + item.name);
+      plus.addEventListener('click', function(){ addToCart(key, item.price, 1); });
+      stepper.appendChild(minus); stepper.appendChild(qtySpan); stepper.appendChild(plus);
+
+      var subtotalB = document.createElement('b');
+      subtotalB.textContent = fmtFCFA(subtotal);
+
+      controls.appendChild(stepper);
+      controls.appendChild(subtotalB);
+      li.appendChild(info);
+      li.appendChild(controls);
       quoteLinesEl.insertBefore(li, quoteEmptyEl);
     });
-    quoteEmptyEl.hidden = messageLines.length > 0;
+
+    quoteEmptyEl.hidden = keys.length > 0;
     quoteTotalEl.textContent = fmtFCFA(total);
 
-    if (messageLines.length > 0) {
+    if (keys.length > 0) {
       var msg = 'Bonjour, je souhaite ce devis :\n' + messageLines.join('\n') + '\nTotal : ' + fmtFCFA(total);
       quoteWhatsappEl.href = 'https://wa.me/221770642521?text=' + encodeURIComponent(msg);
       quoteWhatsappEl.textContent = 'Envoyer ce devis sur WhatsApp';
@@ -1397,33 +1533,23 @@
       quoteWhatsappEl.href = 'https://wa.me/221770642521';
       quoteWhatsappEl.textContent = 'Écrire sur WhatsApp';
     }
+
+    if (cartBadge) {
+      cartBadge.hidden = totalCount === 0;
+      cartBadge.querySelector('[data-count]').textContent = totalCount;
+    }
   }
 
-  document.querySelectorAll('.qty-stepper').forEach(function(el){
-    var product = el.getAttribute('data-product');
-    var price = Number(el.getAttribute('data-price'));
-    quoteQty[product] = 0;
-    var valueEl = el.querySelector('[data-qty]');
-    var subtotalEl = el.closest('.card-foot').querySelector('[data-subtotal]');
-
-    function update(){
-      valueEl.textContent = quoteQty[product];
-      var subtotal = quoteQty[product] * price;
-      if (quoteQty[product] > 0) {
-        subtotalEl.hidden = false;
-        subtotalEl.querySelector('b').textContent = fmtFCFA(subtotal);
-      } else {
-        subtotalEl.hidden = true;
-      }
-      renderQuote();
-    }
-    el.querySelector('.qty-minus').addEventListener('click', function(){
-      quoteQty[product] = Math.max(0, quoteQty[product] - 1);
-      update();
-    });
-    el.querySelector('.qty-plus').addEventListener('click', function(){
-      quoteQty[product] = Math.min(99, quoteQty[product] + 1);
-      update();
+  document.querySelectorAll('.gallery-add').forEach(function(btn){
+    var item = btn.closest('.gallery-item');
+    var name = item.getAttribute('data-caption');
+    var price = Number(item.getAttribute('data-price'));
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      addToCart(name, price, 1);
+      btn.textContent = '✓';
+      btn.classList.add('added');
+      setTimeout(function(){ btn.textContent = '+'; btn.classList.remove('added'); }, 700);
     });
   });
 
@@ -1439,8 +1565,8 @@
     });
   }
 
-  var galleryButtons = Array.prototype.slice.call(document.querySelectorAll('.gallery-item'));
-  galleryButtons.forEach(function(btn){ btn.querySelector('img').loading = 'lazy'; btn.querySelector('img').decoding = 'async'; });
+  var galleryButtons = Array.prototype.slice.call(document.querySelectorAll('.gallery-view'));
+  galleryButtons.forEach(function(btn){ var img = btn.querySelector('img'); img.loading = 'lazy'; img.decoding = 'async'; });
 
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
@@ -1448,12 +1574,15 @@
   var lightboxCat = document.getElementById('lightboxCat');
   var lightboxCount = document.getElementById('lightboxCount');
   var lightboxCta = document.getElementById('lightboxCta');
+  var lightboxAdd = document.getElementById('lightboxAdd');
   var currentIndex = 0;
 
   function renderLightbox(){
     var btn = galleryButtons[currentIndex];
     var img = btn.querySelector('img');
     var caption = btn.getAttribute('data-caption') || '';
+    var item = btn.closest('.gallery-item');
+    var price = Number(item.getAttribute('data-price'));
     var group = btn.closest('.gallery-group');
     var catName = group ? group.querySelector('.cat-name').textContent : '';
     lightboxImg.src = img.src;
@@ -1462,6 +1591,17 @@
     lightboxCat.textContent = catName;
     lightboxCount.textContent = (currentIndex + 1) + ' / ' + galleryButtons.length;
     lightboxCta.href = 'https://wa.me/221770642521?text=' + encodeURIComponent('Bonjour, je suis intéressé(e) par : ' + caption + '. Est-elle disponible ?');
+    lightboxAdd.textContent = 'Ajouter au panier';
+    lightboxAdd.classList.remove('added');
+    lightboxAdd.onclick = function(){
+      addToCart(caption, price, 1);
+      lightboxAdd.textContent = 'Ajouté ✓';
+      lightboxAdd.classList.add('added');
+      setTimeout(function(){
+        lightboxAdd.textContent = 'Ajouter au panier';
+        lightboxAdd.classList.remove('added');
+      }, 900);
+    };
   }
   function openLightbox(index){
     currentIndex = index;
