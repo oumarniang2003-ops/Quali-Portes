@@ -15,14 +15,14 @@
 <div class="promo-bar">🚚 Livraison gratuite &nbsp;·&nbsp; 🔧 Installation gratuite &nbsp;·&nbsp; 📦 Grand stock disponible — <a href="https://wa.me/221770642521" target="_blank" rel="noopener">réservez sur WhatsApp</a></div>
 <header>
   <div class="wrap nav">
-    <a href="index.html#top" class="brand"><img src="img/logo-quali-portes.png" alt="Quali Portes — Portes &amp; tous matériaux de construction"></a>
+    <a href="index.html" class="brand"><img src="img/logo-quali-portes.png" alt="Quali Portes — Portes &amp; tous matériaux de construction"></a>
     <nav class="nav-links" id="navLinks">
-      <a href="index.html#catalogue">Catalogue</a>
-      <a href="index.html#galerie">Galerie</a>
-      <a href="index.html#comparatif">Comparatif</a>
-      <a href="index.html#fabrication">Commander</a>
-      <a href="index.html#pourquoi">Pourquoi nous</a>
-      <a href="index.html#devis">Contact</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="comparatif.html">Comparatif</a>
+      <a href="commander.html">Commander</a>
+      <a href="pourquoi.html">Pourquoi nous</a>
+      <a href="contact.html">Contact</a>
       <a href="panier.html">Panier (<span data-cart-count>0</span>)</a>
     </nav>
     <div class="nav-actions">
@@ -43,8 +43,8 @@
 
       <div class="cart-empty" id="cartEmpty" hidden>
         <p>Votre panier est vide pour l'instant.</p>
-        <a class="btn btn-primary" href="index.html#catalogue">Voir le catalogue</a>
-        <a class="btn btn-ghost" href="index.html#galerie">Parcourir la galerie</a>
+        <a class="btn btn-primary" href="catalogue.html">Voir le catalogue</a>
+        <a class="btn btn-ghost" href="galerie.html">Parcourir la galerie</a>
       </div>
 
       <div id="cartContent">
@@ -57,7 +57,7 @@
           </div>
           <div class="cart-summary-actions">
             <a class="btn btn-primary btn-lg" id="cartWhatsapp" href="#" target="_blank" rel="noopener">Envoyer ce devis sur WhatsApp</a>
-            <a class="btn btn-ghost" href="index.html#galerie">Continuer mes achats</a>
+            <a class="btn btn-ghost" href="galerie.html">Continuer mes achats</a>
           </div>
         </div>
       </div>
@@ -205,6 +205,17 @@
 
   renderCartPage();
   window.addEventListener('storage', renderCartPage);
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in-view'); });
+  }
 </script>
 </body>
 </html>

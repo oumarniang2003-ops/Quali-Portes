@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quali Portes — Commander</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,380..760&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="cart.js"></script>
+</head>
+<body>
+
+<div class="promo-bar">🚚 Livraison gratuite &nbsp;·&nbsp; 🔧 Installation gratuite &nbsp;·&nbsp; 📦 Grand stock disponible — <a href="https://wa.me/221770642521" target="_blank" rel="noopener">réservez sur WhatsApp</a></div>
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand"><img src="img/logo-quali-portes.png" alt="Quali Portes — Portes &amp; tous matériaux de construction"></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="catalogue.html">Catalogue</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="comparatif.html">Comparatif</a>
+      <a href="commander.html">Commander</a>
+      <a href="pourquoi.html">Pourquoi nous</a>
+      <a href="contact.html">Contact</a>
+      <a href="panier.html">Panier (<span data-cart-count>0</span>)</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:+221770642521"><span>+221 77 064 25 21</span></a>
+      <a class="nav-cart" href="panier.html" aria-label="Voir mon panier">🛒<span class="nav-cart-count" data-cart-count data-cart-badge hidden>0</span></a>
+      <a class="btn btn-primary btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="fabrication">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Commander</p>
+        <h2>Du choix du modèle à la porte posée</h2>
+        <p>Le stock est disponible immédiatement — la commande se fait directement sur WhatsApp.</p>
+      </div>
+      <div class="process">
+        <div class="step reveal">
+          <div class="num">01</div>
+          <h3>Choisissez votre modèle</h3>
+          <p><a href="catalogue.html" style="color:inherit; text-decoration:underline;">Bois chambre/toilette, bois vitré salon ou blindée</a> dans le catalogue.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">02</div>
+          <h3>Ajoutez au panier</h3>
+          <p>Choisissez la couleur dans la <a href="galerie.html" style="color:inherit; text-decoration:underline;">galerie</a> et ajustez les quantités dans votre <a href="panier.html" style="color:inherit; text-decoration:underline;">panier</a>.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">03</div>
+          <h3>Confirmez sur WhatsApp</h3>
+          <p>Envoyez votre devis et votre adresse à Dakar pour valider la commande.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">04</div>
+          <h3>Livraison &amp; installation</h3>
+          <p>Votre porte est livrée depuis l'entrepôt de Mariste et posée sur place, sans frais additionnel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a href="panier.html" class="cart-badge" data-cart-badge hidden>🛒 <span data-cart-count>0</span> porte(s) — voir mon panier</a>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span>© <span id="year"></span> Quali Portes — Portes &amp; tous matériaux de construction</span>
+      <span>Facebook · Instagram · TikTok — Quali Portes</span>
+    </div>
+    <p class="foot-note">Prix affichés pour livraison et installation gratuites à Dakar. Visuels donnés à titre indicatif — contactez-nous sur WhatsApp pour confirmer la disponibilité du modèle choisi.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if (toggle) {
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in-view'); });
+  }
+</script>
+</body>
+</html>
