@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quali Portes — Panier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,380..760&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="cart.js"></script>
+</head>
+<body>
+
+<div class="promo-bar">🚚 Livraison gratuite &nbsp;·&nbsp; 🔧 Installation gratuite &nbsp;·&nbsp; 📦 Grand stock disponible — <a href="https://wa.me/221770642521" target="_blank" rel="noopener">réservez sur WhatsApp</a></div>
+<header>
+  <div class="wrap nav">
+    <a href="index.html#top" class="brand"><img src="img/logo-quali-portes.png" alt="Quali Portes — Portes &amp; tous matériaux de construction"></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html#catalogue">Catalogue</a>
+      <a href="index.html#galerie">Galerie</a>
+      <a href="index.html#comparatif">Comparatif</a>
+      <a href="index.html#fabrication">Commander</a>
+      <a href="index.html#pourquoi">Pourquoi nous</a>
+      <a href="index.html#devis">Contact</a>
+      <a href="panier.html">Panier (<span data-cart-count>0</span>)</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:+221770642521"><span>+221 77 064 25 21</span></a>
+      <a class="nav-cart" href="panier.html" aria-label="Voir mon panier">🛒<span class="nav-cart-count" data-cart-count data-cart-badge hidden>0</span></a>
+      <a class="btn btn-primary btn-sm" href="https://wa.me/221770642521" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="cart-page">
+    <div class="wrap">
+      <p class="eyebrow">Votre sélection</p>
+      <h1>Votre panier</h1>
+      <p class="cart-page-lede">Vérifiez les portes choisies, ajustez les quantités, puis envoyez votre devis directement sur WhatsApp — nous revenons vers vous sous 48h.</p>
+
+      <div class="cart-empty" id="cartEmpty" hidden>
+        <p>Votre panier est vide pour l'instant.</p>
+        <a class="btn btn-primary" href="index.html#catalogue">Voir le catalogue</a>
+        <a class="btn btn-ghost" href="index.html#galerie">Parcourir la galerie</a>
+      </div>
+
+      <div id="cartContent">
+        <ul class="cart-list" id="cartList"></ul>
+
+        <div class="cart-summary">
+          <div class="cart-summary-row">
+            <span>Total</span>
+            <b id="cartTotal">0 FCFA</b>
+          </div>
+          <div class="cart-summary-actions">
+            <a class="btn btn-primary btn-lg" id="cartWhatsapp" href="#" target="_blank" rel="noopener">Envoyer ce devis sur WhatsApp</a>
+            <a class="btn btn-ghost" href="index.html#galerie">Continuer mes achats</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="devis-contact">
+    <div class="wrap">
+      <div class="cta reveal">
+        <div>
+          <p class="eyebrow" style="color:color-mix(in srgb, var(--bg) 65%, transparent)">Une question avant de commander ?</p>
+          <h2>Appelez-nous ou passez à l'entrepôt.</h2>
+          <p>Notre équipe confirme la disponibilité et l'adresse de livraison avant toute commande.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://wa.me/221770642521" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+            <a class="btn btn-ghost" href="tel:+221770642521">Appeler</a>
+          </div>
+        </div>
+        <div class="contact-info">
+          <div class="contact-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <div><b>Mariste, Zone de Recasement, Almadies</b><span><a href="https://maps.google.com/?q=14.738155,-17.431776" target="_blank" rel="noopener" style="color:inherit">Voir sur la carte</a> · entrepôt sur rendez-vous</span></div>
+          </div>
+          <div class="contact-line">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 5h4l2 5-2.5 1.5a11 11 0 0 0 5 5L13 14l5 2v4a2 2 0 0 1-2 2C8.6 22 2 15.4 2 7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div><b>77 064 25 21 · 78 543 06 17</b><span>Appel ou WhatsApp</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span>© <span id="year"></span> Quali Portes — Portes &amp; tous matériaux de construction</span>
+      <span>Facebook · Instagram · TikTok — Quali Portes</span>
+    </div>
+    <p class="foot-note">Prix affichés pour livraison et installation gratuites à Dakar. Visuels donnés à titre indicatif — contactez-nous sur WhatsApp pour confirmer la disponibilité du modèle choisi.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if (toggle) {
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+    });
+  }
+
+  var cartListEl = document.getElementById('cartList');
+  var cartEmptyEl = document.getElementById('cartEmpty');
+  var cartContentEl = document.getElementById('cartContent');
+  var cartTotalEl = document.getElementById('cartTotal');
+  var cartWhatsappEl = document.getElementById('cartWhatsapp');
+
+  function renderCartPage(){
+    var cart = QualiCart.load();
+    var keys = Object.keys(cart);
+    cartListEl.innerHTML = '';
+
+    if (keys.length === 0) {
+      cartEmptyEl.hidden = false;
+      cartContentEl.hidden = true;
+      return;
+    }
+    cartEmptyEl.hidden = true;
+    cartContentEl.hidden = false;
+
+    keys.forEach(function(key){
+      var item = cart[key];
+      var li = document.createElement('li');
+      li.className = 'cart-row';
+
+      var img = document.createElement('img');
+      img.className = 'cart-row-img';
+      img.src = item.image || '';
+      img.alt = item.name;
+      img.loading = 'lazy';
+
+      var info = document.createElement('div');
+      info.className = 'cart-row-info';
+      var nameSpan = document.createElement('span');
+      nameSpan.className = 'cart-row-name';
+      nameSpan.textContent = item.name;
+      var priceSpan = document.createElement('span');
+      priceSpan.className = 'cart-row-price';
+      priceSpan.textContent = QualiCart.fmtFCFA(item.price) + ' / unité';
+      info.appendChild(nameSpan);
+      info.appendChild(priceSpan);
+
+      var removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'cart-row-remove';
+      removeBtn.setAttribute('aria-label', 'Retirer ' + item.name + ' du panier');
+      removeBtn.textContent = '✕';
+      removeBtn.addEventListener('click', function(){
+        QualiCart.remove(key);
+        renderCartPage();
+      });
+
+      var controls = document.createElement('div');
+      controls.className = 'cart-row-controls';
+
+      var stepper = document.createElement('div');
+      stepper.className = 'qty-stepper';
+      var minus = document.createElement('button');
+      minus.type = 'button'; minus.className = 'qty-btn'; minus.textContent = '−';
+      minus.setAttribute('aria-label', 'Retirer une unité de ' + item.name);
+      minus.addEventListener('click', function(){ QualiCart.add(key, item.price, item.image, -1); renderCartPage(); });
+      var qtySpan = document.createElement('span');
+      qtySpan.className = 'qty-value';
+      qtySpan.textContent = item.qty;
+      var plus = document.createElement('button');
+      plus.type = 'button'; plus.className = 'qty-btn'; plus.textContent = '+';
+      plus.setAttribute('aria-label', 'Ajouter une unité de ' + item.name);
+      plus.addEventListener('click', function(){ QualiCart.add(key, item.price, item.image, 1); renderCartPage(); });
+      stepper.appendChild(minus); stepper.appendChild(qtySpan); stepper.appendChild(plus);
+
+      var subtotal = document.createElement('b');
+      subtotal.className = 'cart-row-subtotal';
+      subtotal.textContent = QualiCart.fmtFCFA(item.qty * item.price);
+
+      controls.appendChild(stepper);
+      controls.appendChild(subtotal);
+
+      li.appendChild(img);
+      li.appendChild(info);
+      li.appendChild(removeBtn);
+      li.appendChild(controls);
+      cartListEl.appendChild(li);
+    });
+
+    cartTotalEl.textContent = QualiCart.fmtFCFA(QualiCart.total(cart));
+    cartWhatsappEl.href = QualiCart.whatsappUrl(cart);
+  }
+
+  renderCartPage();
+  window.addEventListener('storage', renderCartPage);
+</script>
+</body>
+</html>
