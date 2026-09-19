@@ -998,6 +998,7 @@
   /* ---------- cart page ---------- */
   .cart-page{ padding-top: clamp(2rem, 5vw, 3rem); }
   .cart-page-lede{ margin-top: 0.6rem; color: var(--ink-soft); max-width: 60ch; font-size: 1.02rem; }
+  .cart-empty[hidden]{ display: none; }
   .cart-empty{
     margin-top: 2.2rem;
     padding: 3rem 1.5rem;
